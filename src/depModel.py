@@ -16,10 +16,9 @@ class DepModel:
         # write your code here for additional parameters.
         # feel free to add more arguments to the initializer.
         
-        vocab, net_properties = pickle.load(open('outputs/vocab' ,'rb'))
+        vocab, net_properties = pickle.load(open('outputs/vocab'+model ,'rb'))
         self.network = Network(vocab, net_properties)
-        print model
-        self.network.load(model)
+        self.network.load('outputs/model'+model)
     
     def score(self, str_features):
         '''
@@ -38,6 +37,6 @@ class DepModel:
 if __name__=='__main__':
     input_p = os.path.abspath(sys.argv[1])
     output_p = os.path.abspath(sys.argv[2])
-    model = os.path.abspath(sys.argv[3])
+    model = str(sys.argv[3])
     m = DepModel(model)
     Decoder(m.score, m.actions).parse(input_p, output_p)
