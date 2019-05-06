@@ -15,3 +15,5 @@ sed
 .DS_Store
 
 src/__pycache__
+
+outputs/*

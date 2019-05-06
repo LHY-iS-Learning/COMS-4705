@@ -32,8 +32,8 @@ if __name__ == '__main__':
         vocab = Vocab(options.train_file)
 
         # writing properties and vocabulary file into pickle
-        pickle.dump((vocab, net_properties), open(options.vocab_path, 'w'))
-
+        pickle.dump((vocab, net_properties), open(options.vocab_path, 'wb'))
+        
         # constructing network
         network = Network(vocab, net_properties)
 
@@ -42,3 +42,4 @@ if __name__ == '__main__':
 
         # saving network
         network.save(options.model_path)
+       

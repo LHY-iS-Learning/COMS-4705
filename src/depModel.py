@@ -4,7 +4,7 @@ import pickle
 from network import *
 
 class DepModel:
-    def __init__(self):
+    def __init__(self, model):
         '''
             You can add more arguments for examples actions and model paths.
             You need to load your model here.
@@ -16,9 +16,9 @@ class DepModel:
         # write your code here for additional parameters.
         # feel free to add more arguments to the initializer.
         
-        vocab, net_properties = pickle.load(open('outputs/vocab' ,'r'))
+        vocab, net_properties = pickle.load(open('outputs/vocab' ,'rb'))
         self.network = Network(vocab, net_properties)
-        model = 'outputs/model.2'
+        print model
         self.network.load(model)
     
     def score(self, str_features):
@@ -29,13 +29,15 @@ class DepModel:
         :return: list of scores
         '''
         # change this part of the code.
-        output = self.network.build_graph(str_features)
-        return output.npvalue()
+        output = self.network.build_graph(str_features).npvalue()
+        dynet.renew_cg()
+        return output
 
 
 
 if __name__=='__main__':
-    m = DepModel()
     input_p = os.path.abspath(sys.argv[1])
     output_p = os.path.abspath(sys.argv[2])
+    model = os.path.abspath(sys.argv[3])
+    m = DepModel(model)
     Decoder(m.score, m.actions).parse(input_p, output_p)

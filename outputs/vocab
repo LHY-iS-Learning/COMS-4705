@@ -15007,10 +15007,10 @@ p5004
 I32
 sS'hidden_dim2'
 p5005
-I400
+I100
 sS'hidden_dim1'
 p5006
-I400
+I100
 sS'pos_embed_dim'
 p5007
 I32
